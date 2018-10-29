@@ -14,5 +14,14 @@
     <Setting Name="ErrorLog" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\PhotoEdit\Error.log</Value>
     </Setting>
+    <Setting Name="RetrieveFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\PhotoEdit\Photos\</Value>
+    </Setting>
+    <Setting Name="DestinationFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\PhotoEdit\Photos\Archive\</Value>
+    </Setting>
+    <Setting Name="FolderNameFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">yyyyMMdd</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

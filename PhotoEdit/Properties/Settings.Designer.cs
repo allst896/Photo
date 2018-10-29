@@ -70,5 +70,41 @@ namespace PhotoEdit.Properties {
                 this["ErrorLog"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\PhotoEdit\\Photos\\")]
+        public string RetrieveFolder {
+            get {
+                return ((string)(this["RetrieveFolder"]));
+            }
+            set {
+                this["RetrieveFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\PhotoEdit\\Photos\\Archive\\")]
+        public string DestinationFolder {
+            get {
+                return ((string)(this["DestinationFolder"]));
+            }
+            set {
+                this["DestinationFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("yyyyMMdd")]
+        public string FolderNameFormat {
+            get {
+                return ((string)(this["FolderNameFormat"]));
+            }
+            set {
+                this["FolderNameFormat"] = value;
+            }
+        }
     }
 }

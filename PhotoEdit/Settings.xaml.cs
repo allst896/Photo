@@ -34,6 +34,10 @@ namespace PhotoEdit
                 this.txtEmailToAddress.Text = Properties.Settings.Default.EmailTo;
                 this.txtEmailFromAddress.Text = Properties.Settings.Default.EmailFrom;
                 this.txtEmailSubject.Text = Properties.Settings.Default.EmailSubject;
+
+                this.txtToFolder.Text = Properties.Settings.Default.RetrieveFolder;
+                this.txtFromFolder.Text = Properties.Settings.Default.DestinationFolder;
+                this.txtFolderName.Text = Properties.Settings.Default.FolderNameFormat;
             }
             catch (Exception ex)
             {
@@ -41,9 +45,9 @@ namespace PhotoEdit
             }
         }
 
-        private void cmdSaveClick()
+        private void cmdSave_Click(object sender, RoutedEventArgs e)
         {
-            string evoid = "Settings:cmdSaveClick";
+            string evoid = "Settings:cmdSave_Click";
 
             try
             {
@@ -51,7 +55,13 @@ namespace PhotoEdit
                 Properties.Settings.Default.EmailFrom = txtEmailFromAddress.Text;
                 Properties.Settings.Default.EmailSubject = txtEmailSubject.Text;
 
+                Properties.Settings.Default.DestinationFolder = txtToFolder.Text;
+                Properties.Settings.Default.RetrieveFolder = txtFromFolder.Text;
+                Properties.Settings.Default.FolderNameFormat = txtFolderName.Text;
+
                 Properties.Settings.Default.Save();
+
+                MessageBox.Show("Settings have been saved.", "Success", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {

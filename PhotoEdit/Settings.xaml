@@ -17,6 +17,16 @@
                 <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Name="txtEmailSubject" VerticalAlignment="Top" Width="170" Margin="100,60,0,0"/>
             </Grid>
         </GroupBox>
-        <Button Name="cmdSave" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75"/>
+        <GroupBox Header="Files" HorizontalAlignment="Left" Height="125" VerticalAlignment="Top" Width="325" Margin="310,0,0,0">
+            <Grid>
+                <Label Content="Photo Pickup Folder:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Name="txtFromFolder" VerticalAlignment="Top" Width="170" Margin="125,0,0,0"/>
+                <Label Content="Photo Save Folder:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0"></Label>
+                <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Name="txtToFolder" VerticalAlignment="Top" Width="170" Margin="125,30,0,0"/>
+                <Label Content="Folder Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0"></Label>
+                <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Name="txtFolderName" VerticalAlignment="Top" Width="170" Margin="125,60,0,0"/>
+            </Grid>
+        </GroupBox>
+        <Button Name="cmdSave" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Click="cmdSave_Click"/>
     </Grid>
 </Window>
