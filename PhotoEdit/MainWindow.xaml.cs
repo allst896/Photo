@@ -24,5 +24,33 @@ namespace PhotoEdit
         {
             InitializeComponent();
         }
+
+        private void SettingsCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void SettingsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                Settings ssettings = new Settings();
+                ssettings.Show();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+    }
+
+    public static class CustomCommands
+    {
+        public static readonly RoutedUICommand Settings = new RoutedUICommand
+            (
+                "Settings",
+                "Settings",
+                typeof(CustomCommands)
+            );
     }
 }

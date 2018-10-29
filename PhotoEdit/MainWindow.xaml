@@ -3,14 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PhotoEdit"
+        xmlns:self="clr-namespace:PhotoEdit"
         mc:Ignorable="d"
-        Title="Photo Name Edit" Height="450" Width="800">
+        Title="Photo Name Edit" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Window.CommandBindings>
+        <CommandBinding Command="self:CustomCommands.Settings" CanExecute="SettingsCommand_CanExecute" Executed="SettingsCommand_Executed" />
+    </Window.CommandBindings>
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_Settings" Name="mnuFileSettings" Click="MenuClick"></MenuItem>
+                    <MenuItem Command="self:CustomCommands.Settings" />
                 </MenuItem>
             </Menu>
             <StackPanel></StackPanel>

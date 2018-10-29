@@ -5,17 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhotoEdit"
         mc:Ignorable="d"
-        Title="Settings" Height="450" Width="800">
+        Title="Settings" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Grid>
-        <GroupBox Header="Email" HorizontalAlignment="Left" Height="125" VerticalAlignment="Top" Width="250">
+        <GroupBox Header="Email" HorizontalAlignment="Left" Height="125" VerticalAlignment="Top" Width="300">
             <Grid>
                 <Label Content="To Address:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Name="txtEmailToAddress" VerticalAlignment="Top" Width="120" Margin="100,0,0,0"/>
+                <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Name="txtEmailToAddress" VerticalAlignment="Top" Width="170" Margin="100,0,0,0"/>
                 <Label Content="From Address:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0"></Label>
-                <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Name="txtEmailFromAddress" VerticalAlignment="Top" Width="120" Margin="100,30,0,0"/>
+                <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Name="txtEmailFromAddress" VerticalAlignment="Top" Width="170" Margin="100,30,0,0"/>
                 <Label Content="Subject:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0"></Label>
-                <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Name="txtEmailSubject" VerticalAlignment="Top" Width="120" Margin="100,60,0,0"/>
+                <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Name="txtEmailSubject" VerticalAlignment="Top" Width="170" Margin="100,60,0,0"/>
             </Grid>
         </GroupBox>
+        <Button Name="cmdSave" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75"/>
     </Grid>
 </Window>
