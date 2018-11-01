@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace PhotoEdit
 {
@@ -40,6 +41,35 @@ namespace PhotoEdit
             catch (Exception ex)
             {
 
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                dtpDateTaken.SelectedDate = DateTime.Today;
+
+                string defaultPath = Properties.Settings.Default.RetrieveFolder.ToString();
+                ListDirectory(tvPictures, defaultPath);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private static void ListDirectory(TreeView treeView, string path)
+        {
+            treeView.Items.Clear();
+
+            foreach (string s in Directory.GetFiles(path))
+            {
+                TreeViewItem subitem = new TreeViewItem();
+                subitem.Header = s.Substring(s.LastIndexOf("\\") + 1);
+                subitem.Tag = s;
+                subitem.FontWeight = FontWeights.Normal;
+                treeView.Items.Add(subitem);
             }
         }
     }

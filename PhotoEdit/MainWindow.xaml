@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:self="clr-namespace:PhotoEdit"
         mc:Ignorable="d"
-        Title="Photo Name Edit" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Photo Name Edit" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Window.CommandBindings>
         <CommandBinding Command="self:CustomCommands.Settings" CanExecute="SettingsCommand_CanExecute" Executed="SettingsCommand_Executed" />
     </Window.CommandBindings>
@@ -16,7 +16,16 @@
                     <MenuItem Command="self:CustomCommands.Settings" />
                 </MenuItem>
             </Menu>
-            <StackPanel></StackPanel>
+            <StackPanel>
+                <GroupBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="550" Width="550">
+                    <Grid>
+                        <Label Content="Date Taken:"></Label>
+                        <DatePicker Name="dtpDateTaken" SelectedDateFormat="Short" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,0,0,0"></DatePicker>
+                        <TreeView HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="200" Margin="0,30,0,0" Name="tvPictures"/>
+                        <Image HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="300" Margin="225,30,0,0" Name="imViewer"/>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
         </DockPanel>
     </Grid>
 </Window>
