@@ -21,7 +21,7 @@
                     <Grid>
                         <Label Content="Date Taken:"></Label>
                         <DatePicker Name="dtpDateTaken" SelectedDateFormat="Short" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,0,0,0"></DatePicker>
-                        <TreeView HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="200" Margin="0,30,0,0" Name="tvPictures"/>
+                        <TreeView SelectedItemChanged="SelectionChanged" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="200" Margin="0,30,0,0" Name="tvPictures"/>
                         <Image HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="300" Margin="225,30,0,0" Name="imViewer"/>
                     </Grid>
                 </GroupBox>

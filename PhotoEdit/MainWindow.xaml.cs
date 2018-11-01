@@ -44,6 +44,20 @@ namespace PhotoEdit
             }
         }
 
+        private void SelectionChanged(object sender, RoutedPropertyChangedEventArgs<Object> e)
+        {
+            try
+            {
+                string filepath = tvPictures.SelectedValuePath;
+                ImageSource imageSource = new BitmapImage(new Uri(filepath));
+                imViewer.Source = imageSource;
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             try
