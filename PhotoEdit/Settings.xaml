@@ -17,7 +17,7 @@
                 <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Name="txtEmailSubject" VerticalAlignment="Top" Width="170" Margin="100,60,0,0"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Files" HorizontalAlignment="Left" Height="125" VerticalAlignment="Top" Width="325" Margin="310,0,0,0">
+        <GroupBox Header="Files" HorizontalAlignment="Left" Height="125" VerticalAlignment="Top" Width="450" Margin="310,0,0,0">
             <Grid>
                 <Label Content="Photo Pickup Folder:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Name="txtFromFolder" VerticalAlignment="Top" Width="170" Margin="125,0,0,0"/>
@@ -25,6 +25,8 @@
                 <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Name="txtToFolder" VerticalAlignment="Top" Width="170" Margin="125,30,0,0"/>
                 <Label Content="Folder Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0"></Label>
                 <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Name="txtFolderName" VerticalAlignment="Top" Width="170" Margin="125,60,0,0"/>
+                <Label Content="File Types:" Width="100" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,0,0,0"></Label>
+                <Label Name="txtFileTypes" Width="125" Height="65" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="300,30,0,0" BorderBrush="Gray" BorderThickness="1"></Label>
             </Grid>
         </GroupBox>
         <Button Name="cmdSave" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Click="cmdSave_Click"/>

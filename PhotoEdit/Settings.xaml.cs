@@ -38,6 +38,8 @@ namespace PhotoEdit
                 this.txtToFolder.Text = Properties.Settings.Default.RetrieveFolder;
                 this.txtFromFolder.Text = Properties.Settings.Default.DestinationFolder;
                 this.txtFolderName.Text = Properties.Settings.Default.FolderNameFormat;
+
+                this.txtFileTypes.Content = Properties.Settings.Default.FileTypes;
             }
             catch (Exception ex)
             {
@@ -58,6 +60,8 @@ namespace PhotoEdit
                 Properties.Settings.Default.DestinationFolder = txtToFolder.Text;
                 Properties.Settings.Default.RetrieveFolder = txtFromFolder.Text;
                 Properties.Settings.Default.FolderNameFormat = txtFolderName.Text;
+
+                Properties.Settings.Default.FileTypes = txtFileTypes.Content.ToString();
 
                 Properties.Settings.Default.Save();
 

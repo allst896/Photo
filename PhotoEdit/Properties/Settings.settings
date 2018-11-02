@@ -23,5 +23,8 @@
     <Setting Name="FolderNameFormat" Type="System.String" Scope="User">
       <Value Profile="(Default)">yyyyMMdd</Value>
     </Setting>
+    <Setting Name="FileTypes" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.jpg,.jpeg,.png,.bmp</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

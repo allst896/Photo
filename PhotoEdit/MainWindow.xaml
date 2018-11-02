@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:self="clr-namespace:PhotoEdit"
         mc:Ignorable="d"
-        Title="Photo Name Edit" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="Photo Name Edit" Height="750" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Window.CommandBindings>
         <CommandBinding Command="self:CustomCommands.Settings" CanExecute="SettingsCommand_CanExecute" Executed="SettingsCommand_Executed" />
     </Window.CommandBindings>
@@ -17,12 +17,18 @@
                 </MenuItem>
             </Menu>
             <StackPanel>
-                <GroupBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="550" Width="550">
+                <GroupBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="650" Width="750">
                     <Grid>
-                        <Label Content="Date Taken:"></Label>
-                        <DatePicker Name="dtpDateTaken" SelectedDateFormat="Short" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,0,0,0"></DatePicker>
-                        <TreeView SelectedItemChanged="SelectionChanged" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="200" Margin="0,30,0,0" Name="tvPictures"/>
-                        <Image HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="300" Margin="225,30,0,0" Name="imViewer"/>
+                        <Label Content="Date Photos Taken:" Height="25" Width="120" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"></Label>
+                        <DatePicker Name="dtpDateTaken" SelectedDateFormat="Short" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="148,0,0,0"></DatePicker>
+                        <Label Content="Current Folder:" Height="25" Width="100" Margin="0,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
+                        <Button Name="cmdBrowseCurrentFolder" Click="cmdBrowseCurrentFolder_Click" Height="25" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,30,0,0" Content="Browse"></Button>
+                        <TextBox Name="txtCurrentFolder" Height="25" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0"></TextBox>
+                        <TreeView SelectedItemChanged="SelectionChanged" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="250" Margin="0,95,0,0" Name="tvPictures"/>
+                        <Image HorizontalAlignment="Left" Height="400" VerticalAlignment="Top" Width="450" Margin="275,30,0,0" Name="imViewer"/>
+                        <Label Content="Destination Folder:" Height="25" Width="250" Margin="0,402,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"></Label>
+                        <Button Name="cmdBrowseDestinationFolder" Height="25" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,402,0,0" Content="Browse"></Button>
+                        <TextBox Name="txtDestinationFolder" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" Margin="0,432,0,0" Height="25"></TextBox>
                     </Grid>
                 </GroupBox>
             </StackPanel>

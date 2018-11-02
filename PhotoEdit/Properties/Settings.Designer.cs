@@ -106,5 +106,17 @@ namespace PhotoEdit.Properties {
                 this["FolderNameFormat"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".jpg,.jpeg,.png,.bmp")]
+        public string FileTypes {
+            get {
+                return ((string)(this["FileTypes"]));
+            }
+            set {
+                this["FileTypes"] = value;
+            }
+        }
     }
 }

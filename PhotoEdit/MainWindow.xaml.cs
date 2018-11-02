@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Windows.Forms;
 
 namespace PhotoEdit
 {
@@ -44,11 +45,29 @@ namespace PhotoEdit
             }
         }
 
+        private void cmdBrowseCurrentFolder_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (var dialog = new FolderBrowserDialog())
+                {
+                    DialogResult result = dialog.ShowDialog();
+                    txtCurrentFolder.Text = dialog.SelectedPath;
+                    ListDirectory(tvPictures, dialog.SelectedPath);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         private void SelectionChanged(object sender, RoutedPropertyChangedEventArgs<Object> e)
         {
             try
             {
-                string filepath = tvPictures.SelectedValuePath;
+                TreeViewItem titem = tvPictures.SelectedItem as TreeViewItem;
+                string filepath = titem.Tag.ToString();
                 ImageSource imageSource = new BitmapImage(new Uri(filepath));
                 imViewer.Source = imageSource;
             }
@@ -65,7 +84,9 @@ namespace PhotoEdit
                 dtpDateTaken.SelectedDate = DateTime.Today;
 
                 string defaultPath = Properties.Settings.Default.RetrieveFolder.ToString();
+                txtCurrentFolder.Text = defaultPath;
                 ListDirectory(tvPictures, defaultPath);
+
             }
             catch (Exception ex)
             {
@@ -73,18 +94,50 @@ namespace PhotoEdit
             }
         }
 
-        private static void ListDirectory(TreeView treeView, string path)
+        private static void ListDirectory(System.Windows.Controls.TreeView treeView, string path)
         {
-            treeView.Items.Clear();
-
-            foreach (string s in Directory.GetFiles(path))
+            try
             {
-                TreeViewItem subitem = new TreeViewItem();
-                subitem.Header = s.Substring(s.LastIndexOf("\\") + 1);
-                subitem.Tag = s;
-                subitem.FontWeight = FontWeights.Normal;
-                treeView.Items.Add(subitem);
+                List<string> picExt = new List<string>();
+                picExt = GetFileTypes();
+
+                treeView.Items.Clear();
+
+                foreach (string s in Directory.GetFiles(path))
+                {
+                    if (picExt.Contains(s.Substring(s.IndexOf('.')).ToLower()))
+                    {
+                        TreeViewItem subitem = new TreeViewItem();
+                        subitem.Header = s.Substring(s.LastIndexOf("\\") + 1);
+                        subitem.Tag = s;
+                        subitem.FontWeight = FontWeights.Normal;
+                        treeView.Items.Add(subitem);
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        public static List<string> GetFileTypes()
+        {
+            List<string> returnList = new List<string>();
+
+            try
+            {
+                string[] defaulttypes = Properties.Settings.Default.FileTypes.Split(',');
+                foreach (string s in defaulttypes)
+                {
+                    returnList.Add(s);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return returnList;
         }
     }
 
