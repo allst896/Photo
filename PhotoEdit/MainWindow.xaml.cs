@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
-using System.Windows.Forms;
 
 namespace PhotoEdit
 {
@@ -49,9 +48,9 @@ namespace PhotoEdit
         {
             try
             {
-                using (var dialog = new FolderBrowserDialog())
+                using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
                 {
-                    DialogResult result = dialog.ShowDialog();
+                    System.Windows.Forms.DialogResult result = dialog.ShowDialog();
                     txtCurrentFolder.Text = dialog.SelectedPath;
                     ListDirectory(tvPictures, dialog.SelectedPath);
                 }
@@ -62,6 +61,21 @@ namespace PhotoEdit
             }
         }
 
+        private void cmdBrowseDestinationFolder_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+                {
+                    System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+                    txtDestinationFolder.Text = dialog.SelectedPath;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
         private void SelectionChanged(object sender, RoutedPropertyChangedEventArgs<Object> e)
         {
             try
@@ -86,7 +100,9 @@ namespace PhotoEdit
                 string defaultPath = Properties.Settings.Default.RetrieveFolder.ToString();
                 txtCurrentFolder.Text = defaultPath;
                 ListDirectory(tvPictures, defaultPath);
-
+                defaultPath = Properties.Settings.Default.DestinationFolder.ToString();
+                txtDestinationFolder.Text = defaultPath;
+                txtSaveFileFormat.Text = dtpDateTaken.SelectedDate.Value.ToString("yyyyMMdd");
             }
             catch (Exception ex)
             {
@@ -94,7 +110,50 @@ namespace PhotoEdit
             }
         }
 
-        private static void ListDirectory(System.Windows.Controls.TreeView treeView, string path)
+        private void dtpDateTaken_Changed(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                txtSaveFileFormat.Text = dtpDateTaken.SelectedDate.Value.ToString("yyyyMMdd");
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void cmdSaveFile_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string foldername = txtDestinationFolder.Text;
+                string filename = "";
+                TreeViewItem titem = tvPictures.SelectedItem as TreeViewItem;
+                string filepath = titem.Tag.ToString();
+
+                if (txtSaveFileFormat.Text != null && txtSaveFileFormat.Text != "")
+                {
+                    if (!(Directory.Exists(txtDestinationFolder.Text + "\\" + txtSaveFileFormat.Text)))
+                    {
+                        Directory.CreateDirectory(txtDestinationFolder.Text + "\\" + txtSaveFileFormat.Text);
+                    }
+                    foldername += "\\" + txtSaveFileFormat.Text;
+                    filename = txtSaveFileFormat.Text;
+                }
+
+                if (cboFilename.SelectedValue != null)
+                {
+                    filename += cboFilename.SelectedValue.ToString();
+                }
+                filename += "." + filepath.Substring(filepath.IndexOf('.')).ToLower();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private static void ListDirectory(TreeView treeView, string path)
         {
             try
             {
