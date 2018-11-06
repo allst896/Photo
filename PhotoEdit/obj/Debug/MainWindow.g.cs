@@ -215,6 +215,7 @@ namespace PhotoEdit
 
         internal System.Windows.Controls.ComboBox cboFilename;
         internal System.Windows.Controls.Button cmdSaveFile;
+        internal System.Windows.Controls.Button cmdOpenEmail;
     }
 }
 

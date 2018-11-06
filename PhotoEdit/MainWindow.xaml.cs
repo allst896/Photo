@@ -122,6 +122,18 @@ namespace PhotoEdit
             }
         }
 
+        private void cmdOpenEmail_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //open outlook with to, from, subject and attachment
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         private void cmdSaveFile_Click(object sender, RoutedEventArgs e)
         {
             try
