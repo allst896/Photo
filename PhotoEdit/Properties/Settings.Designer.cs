@@ -118,5 +118,17 @@ namespace PhotoEdit.Properties {
                 this["FileTypes"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\PhotoEdit\\FileNames.txt")]
+        public string FileNameFile {
+            get {
+                return ((string)(this["FileNameFile"]));
+            }
+            set {
+                this["FileNameFile"] = value;
+            }
+        }
     }
 }

@@ -26,5 +26,8 @@
     <Setting Name="FileTypes" Type="System.String" Scope="User">
       <Value Profile="(Default)">.jpg,.jpeg,.png,.bmp</Value>
     </Setting>
+    <Setting Name="FileNameFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\PhotoEdit\FileNames.txt</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

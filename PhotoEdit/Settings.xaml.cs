@@ -35,15 +35,18 @@ namespace PhotoEdit
                 this.txtEmailFromAddress.Text = Properties.Settings.Default.EmailFrom;
                 this.txtEmailSubject.Text = Properties.Settings.Default.EmailSubject;
 
-                this.txtToFolder.Text = Properties.Settings.Default.RetrieveFolder;
-                this.txtFromFolder.Text = Properties.Settings.Default.DestinationFolder;
+                this.txtFromFolder.Text = Properties.Settings.Default.RetrieveFolder;
+                this.txtToFolder.Text = Properties.Settings.Default.DestinationFolder;
                 this.txtFolderName.Text = Properties.Settings.Default.FolderNameFormat;
 
                 this.txtFileTypes.Content = Properties.Settings.Default.FileTypes;
+
+                this.txtFileNameFile.Text = Properties.Settings.Default.FileNameFile;
             }
             catch (Exception ex)
             {
-                
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\PhotoEdit_Error.log", "(" + DateTime.Now.ToString() + ") " + evoid + ": " + ex.Message.ToString() + Environment.NewLine);
+                MessageBox.Show("An error has occurred. Please see error log for details.", "Error", MessageBoxButton.OK);
             }
         }
 
@@ -63,13 +66,16 @@ namespace PhotoEdit
 
                 Properties.Settings.Default.FileTypes = txtFileTypes.Content.ToString();
 
+                Properties.Settings.Default.FileNameFile = txtFileNameFile.Text;
+
                 Properties.Settings.Default.Save();
 
                 MessageBox.Show("Settings have been saved.", "Success", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
-
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\PhotoEdit_Error.log", "(" + DateTime.Now.ToString() + ") " + evoid + ": " + ex.Message.ToString() + Environment.NewLine);
+                MessageBox.Show("An error has occurred. Please see error log for details.", "Error", MessageBoxButton.OK);
             }
         }
     }

@@ -13,8 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
-using System.Net.Mail;
-using System.Reflection;
+using Win32Mapi;
 
 namespace PhotoEdit
 {
@@ -35,6 +34,7 @@ namespace PhotoEdit
 
         private void SettingsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            string evoid = "MainWindow:SettingsCommand_Executed";
             try
             {
                 Settings ssettings = new Settings();
@@ -42,12 +42,14 @@ namespace PhotoEdit
             }
             catch (Exception ex)
             {
-
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\PhotoEdit_Error.log", "(" + DateTime.Now.ToString() + ") " + evoid + ": " + ex.Message.ToString() + Environment.NewLine);
+                MessageBox.Show("An error has occurred. Please see error log for details.", "Error", MessageBoxButton.OK);
             }
         }
 
         private void cmdBrowseCurrentFolder_Click(object sender, RoutedEventArgs e)
         {
+            string evoid = "MainWindow:cmdBrowseCurrentFolder_Click";
             try
             {
                 using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
@@ -59,12 +61,15 @@ namespace PhotoEdit
             }
             catch (Exception ex)
             {
-
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\PhotoEdit_Error.log", "(" + DateTime.Now.ToString() + ") " + evoid + ": " + ex.Message.ToString() + Environment.NewLine);
+                MessageBox.Show("An error has occurred. Please see error log for details.", "Error", MessageBoxButton.OK);
             }
         }
 
         private void cmdBrowseDestinationFolder_Click(object sender, RoutedEventArgs e)
         {
+            string evoid = "MainWindow:cmdBrowseDestinationFolder_Click";
+
             try
             {
                 using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
@@ -75,11 +80,13 @@ namespace PhotoEdit
             }
             catch (Exception ex)
             {
-
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\PhotoEdit_Error.log", "(" + DateTime.Now.ToString() + ") " + evoid + ": " + ex.Message.ToString() + Environment.NewLine);
+                MessageBox.Show("An error has occurred. Please see error log for details.", "Error", MessageBoxButton.OK);
             }
         }
         private void SelectionChanged(object sender, RoutedPropertyChangedEventArgs<Object> e)
         {
+            string evoid = "MainWindow:SelectionChanged";
             try
             {
                 TreeViewItem titem = tvPictures.SelectedItem as TreeViewItem;
@@ -89,12 +96,15 @@ namespace PhotoEdit
             }
             catch (Exception ex)
             {
-
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\PhotoEdit_Error.log", "(" + DateTime.Now.ToString() + ") " + evoid + ": " + ex.Message.ToString() + Environment.NewLine);
+                MessageBox.Show("An error has occurred. Please see error log for details.", "Error", MessageBoxButton.OK);
             }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            string evoid = "MainWindow:Window_Loaded";
+
             try
             {
                 dtpDateTaken.SelectedDate = DateTime.Today;
@@ -105,121 +115,125 @@ namespace PhotoEdit
                 defaultPath = Properties.Settings.Default.DestinationFolder.ToString();
                 txtDestinationFolder.Text = defaultPath;
                 txtSaveFileFormat.Text = dtpDateTaken.SelectedDate.Value.ToString("yyyyMMdd");
+
+                if (File.Exists(Properties.Settings.Default.FileNameFile.ToString()))
+                {
+                    string line = "";
+                    StreamReader sr = new StreamReader(Properties.Settings.Default.FileNameFile.ToString());
+                    while ((line=sr.ReadLine()) != null)
+                    {
+                        cboFilename.Items.Add(line);
+                    }
+                }
             }
             catch (Exception ex)
             {
-
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\PhotoEdit_Error.log", "(" + DateTime.Now.ToString() + ") " + evoid + ": " + ex.Message.ToString() + Environment.NewLine);
+                MessageBox.Show("An error has occurred. Please see error log for details.", "Error", MessageBoxButton.OK);
             }
         }
 
         private void dtpDateTaken_Changed(object sender, RoutedEventArgs e)
         {
+            string evoid = "MainWindow:dtpDateTaken_Changed";
+
             try
             {
                 txtSaveFileFormat.Text = dtpDateTaken.SelectedDate.Value.ToString("yyyyMMdd");
             }
             catch (Exception ex)
             {
-
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\PhotoEdit_Error.log", "(" + DateTime.Now.ToString() + ") " + evoid + ": " + ex.Message.ToString() + Environment.NewLine);
+                MessageBox.Show("An error has occurred. Please see error log for details.", "Error", MessageBoxButton.OK);
             }
         }
 
         private void cmdOpenEmail_Click(object sender, RoutedEventArgs e)
         {
+            string evoid = "MainWindow:OpenEmail_Click";
+
             try
             {
-                //open outlook with to, from, subject and attachment
-                //create an email
-                MailMessage message = new MailMessage();
-                message.From = new MailAddress("your@email.com", "MyCompany");
-                message.Subject = "Email subject goes here";
-                message.IsBodyHtml = true;
-                message.Body = "<html><head></head><body><font size=\"3\" color=\"#ff0000\">HTML formatted email body.</body></html>";
+                string toaddress = Properties.Settings.Default.EmailTo.ToString();
+                string fromaddress = Properties.Settings.Default.EmailFrom.ToString();
+                string subject = Properties.Settings.Default.EmailSubject.ToString();
+                if (txtDestinationFolder.Text.Substring(txtDestinationFolder.Text.Length - 1, 1) == "\\") { txtDestinationFolder.Text = txtDestinationFolder.Text.Substring(0, txtDestinationFolder.Text.Length - 1); }
+                string foldername = txtDestinationFolder.Text;
+                if (txtSaveFileFormat.Text != null && txtSaveFileFormat.Text != "")
+                {
+                    foldername += "\\" + txtSaveFileFormat.Text;
+                }
 
-                //add the attachments
-                message.Attachments.Add(new Attachment("PhotoEdit.pdb"));
-
-                //get the message as byte array
-                byte[] bin = getEmailAsEML(message);
-
-                //save byte array to file
-                string path = "C://Temp/mymessage.eml";
-                File.WriteAllBytes(path, bin);
-
-                //send the email to the client as eml
-                System.Diagnostics.Process.Start(path);
+                var mapi = new SimpleMapi();
+                if (toaddress != "") { mapi.AddRecipient(name: toaddress, addr: null, cc: false); }
+                if (fromaddress != "") { mapi.SetSender(fromaddress, senderAddress: null); }
+                foreach (string s in Directory.GetFiles(foldername))
+                {
+                    mapi.Attach(s);
+                }
+                mapi.Send(subject, "Please see the attached photos.", true);
             }
             catch (Exception ex)
             {
-
-            }
-        }
-
-        public byte[] getEmailAsEML(MailMessage message)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                var binaryWriter = new BinaryWriter(ms);
-                //Write the Unsent header to the file so the mail client knows this mail must be presented in "New message" mode
-                binaryWriter.Write(Encoding.UTF8.GetBytes("X-Unsent: 1" + Environment.NewLine));
-
-                var assembly = typeof(SmtpClient).Assembly;
-                var mailWriterType = assembly.GetType("System.Net.Mail.MailWriter");
-
-                // Get reflection info for MailWriter contructor
-                var mailWriterContructor = mailWriterType.GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new[] { typeof(Stream) }, null);
-
-                // Construct MailWriter object with our FileStream
-                var mailWriter = mailWriterContructor.Invoke(new object[] { ms });
-
-                // Get reflection info for Send() method on MailMessage
-                var sendMethod = typeof(MailMessage).GetMethod("Send", BindingFlags.Instance | BindingFlags.NonPublic);
-
-                sendMethod.Invoke(message, BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { mailWriter, true, true }, null);
-
-                // Finally get reflection info for Close() method on our MailWriter
-                var closeMethod = mailWriter.GetType().GetMethod("Close", BindingFlags.Instance | BindingFlags.NonPublic);
-
-                // Call close method
-                closeMethod.Invoke(mailWriter, BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { }, null);
-
-                return ms.ToArray();
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\PhotoEdit_Error.log", "(" + DateTime.Now.ToString() + ") " + evoid + ": " + ex.Message.ToString() + Environment.NewLine);
+                MessageBox.Show("An error has occurred. Please see error log for details.", "Error", MessageBoxButton.OK);
             }
         }
 
         private void cmdSaveFile_Click(object sender, RoutedEventArgs e)
         {
+            string evoid = "MainWindow:cmdSaveFile_Click";
+
             try
             {
-                string foldername = txtDestinationFolder.Text;
-                string filename = "";
                 TreeViewItem titem = tvPictures.SelectedItem as TreeViewItem;
-                string filepath = titem.Tag.ToString();
-
-                if (txtSaveFileFormat.Text != null && txtSaveFileFormat.Text != "")
+                if (titem == null) { MessageBox.Show("You must choose a file to rename.", "Missing File", MessageBoxButton.OK); }
+                else
                 {
-                    if (!(Directory.Exists(txtDestinationFolder.Text + "\\" + txtSaveFileFormat.Text)))
+                    if ((txtSaveFileFormat.Text == null || txtSaveFileFormat.Text == "") && (cboFilename.Text == null || cboFilename.Text == ""))
                     {
-                        Directory.CreateDirectory(txtDestinationFolder.Text + "\\" + txtSaveFileFormat.Text);
+                        MessageBox.Show("You must have a file name.", "Missing File Name", MessageBoxButton.OK);
                     }
-                    foldername += "\\" + txtSaveFileFormat.Text;
-                    filename = txtSaveFileFormat.Text;
-                }
+                    else
+                    {
+                        if (txtDestinationFolder.Text.Substring(txtDestinationFolder.Text.Length - 1, 1) == "\\") { txtDestinationFolder.Text = txtDestinationFolder.Text.Substring(0, txtDestinationFolder.Text.Length - 1); }
 
-                if (cboFilename.SelectedValue != null)
-                {
-                    filename += cboFilename.SelectedValue.ToString();
+                        string foldername = txtDestinationFolder.Text;
+                        string filename = "";
+                        string filepath = titem.Tag.ToString();
+
+                        if (txtSaveFileFormat.Text != null && txtSaveFileFormat.Text != "")
+                        {
+                            if (!(Directory.Exists(txtDestinationFolder.Text + "\\" + txtSaveFileFormat.Text)))
+                            {
+                                Directory.CreateDirectory(txtDestinationFolder.Text + "\\" + txtSaveFileFormat.Text);
+                            }
+                            foldername += "\\" + txtSaveFileFormat.Text;
+                            filename = txtSaveFileFormat.Text;
+                        }
+
+                        if (cboFilename.SelectedValue != null)
+                        {
+                            filename += "_" + cboFilename.SelectedValue.ToString();
+                        }
+                        filename += filepath.Substring(filepath.IndexOf('.')).ToLower();
+                        File.Copy(filepath, foldername + "\\" + filename);
+
+                        MessageBox.Show("File successfully saved.", "Success", MessageBoxButton.OK);
+                    }
                 }
-                filename += "." + filepath.Substring(filepath.IndexOf('.')).ToLower();
             }
             catch (Exception ex)
             {
-
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\PhotoEdit_Error.log", "(" + DateTime.Now.ToString() + ") " + evoid + ": " + ex.Message.ToString() + Environment.NewLine);
+                MessageBox.Show("An error has occurred. Please see error log for details.", "Error", MessageBoxButton.OK);
             }
         }
 
         private static void ListDirectory(TreeView treeView, string path)
         {
+            string evoid = "MainWindow:ListDirectory";
+
             try
             {
                 List<string> picExt = new List<string>();
@@ -241,12 +255,14 @@ namespace PhotoEdit
             }
             catch (Exception ex)
             {
-
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\PhotoEdit_Error.log", "(" + DateTime.Now.ToString() + ") " + evoid + ": " + ex.Message.ToString() + Environment.NewLine);
+                MessageBox.Show("An error has occurred. Please see error log for details.", "Error", MessageBoxButton.OK);
             }
         }
 
         public static List<string> GetFileTypes()
         {
+            string evoid = "MainWindow:GetFileTypes";
             List<string> returnList = new List<string>();
 
             try
@@ -259,7 +275,8 @@ namespace PhotoEdit
             }
             catch (Exception ex)
             {
-
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\PhotoEdit_Error.log", "(" + DateTime.Now.ToString() + ") " + evoid + ": " + ex.Message.ToString() + Environment.NewLine);
+                MessageBox.Show("An error has occurred. Please see error log for details.", "Error", MessageBoxButton.OK);
             }
             return returnList;
         }

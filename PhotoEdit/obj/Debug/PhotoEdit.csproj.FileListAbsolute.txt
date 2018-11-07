@@ -15,3 +15,6 @@ C:\Users\allst\Documents\GitHub\portfolio\PhotoEdit\PhotoEdit\obj\Debug\PhotoEdi
 C:\Users\allst\Documents\GitHub\portfolio\PhotoEdit\PhotoEdit\obj\Debug\PhotoEdit.csproj.CoreCompileInputs.cache
 C:\Users\allst\Documents\GitHub\portfolio\PhotoEdit\PhotoEdit\obj\Debug\PhotoEdit.exe
 C:\Users\allst\Documents\GitHub\portfolio\PhotoEdit\PhotoEdit\obj\Debug\PhotoEdit.pdb
+C:\Users\allst\Documents\GitHub\portfolio\PhotoEdit\PhotoEdit\bin\Debug\SimpleMapi.dll
+C:\Users\allst\Documents\GitHub\portfolio\PhotoEdit\PhotoEdit\bin\Debug\SimpleMapi.xml
+C:\Users\allst\Documents\GitHub\portfolio\PhotoEdit\PhotoEdit\obj\Debug\PhotoEdit.csproj.CopyComplete
