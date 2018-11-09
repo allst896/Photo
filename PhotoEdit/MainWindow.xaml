@@ -35,6 +35,7 @@
                         <ComboBox Name="cboFilename" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="25" Margin="405,595,0,0"></ComboBox>
                         <TextBox Name="txtExtraFileName" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Height="25" Margin="535,595,0,0"></TextBox>
                         <Button Name="cmdSaveFile" Click="cmdSaveFile_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Content="Save" Height="25" Width="100" Margin="626,595,0,0"></Button>
+                        <CheckBox Name="chkKeepSourceFile" IsChecked="False" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Content="Keep Source File?" Margin="616,625,0,0"></CheckBox>
                     </Grid>
                 </GroupBox>
             </StackPanel>

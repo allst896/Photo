@@ -89,10 +89,28 @@ namespace PhotoEdit
             string evoid = "MainWindow:SelectionChanged";
             try
             {
-                TreeViewItem titem = tvPictures.SelectedItem as TreeViewItem;
-                string filepath = titem.Tag.ToString();
-                ImageSource imageSource = new BitmapImage(new Uri(filepath));
-                imViewer.Source = imageSource;
+                bool anyselected = false;
+                foreach (TreeViewItem t in tvPictures.Items)
+                {
+                    if (t.IsSelected == true)
+                    {
+                        anyselected = true;
+                        break;
+                    }
+                }
+
+                if (anyselected == true)
+                {
+                    TreeViewItem titem = tvPictures.SelectedItem as TreeViewItem;
+                    string filepath = titem.Tag.ToString();
+                    BitmapImage bi = new BitmapImage();
+                    bi.BeginInit();
+                    bi.CacheOption = BitmapCacheOption.OnLoad;
+                    bi.UriSource = new Uri(filepath);
+                    bi.EndInit();
+                    ImageSource imageSource = bi;
+                    imViewer.Source = imageSource;
+                }
             }
             catch (Exception ex)
             {
@@ -187,6 +205,7 @@ namespace PhotoEdit
             try
             {
                 TreeViewItem titem = tvPictures.SelectedItem as TreeViewItem;
+                
                 if (titem == null) { MessageBox.Show("You must choose a file to rename.", "Missing File", MessageBoxButton.OK); }
                 else
                 {
@@ -218,9 +237,17 @@ namespace PhotoEdit
                         }
                         if (txtExtraFileName.Text != "") { filename += "_" + txtExtraFileName.Text; }
                         filename += filepath.Substring(filepath.IndexOf('.')).ToLower();
+
                         File.Copy(filepath, foldername + "\\" + filename);
-                        //File.Delete(filepath);
-                        
+
+                        if (chkKeepSourceFile.IsChecked == false)
+                        {
+                            imViewer.Source = null;
+                            titem.IsSelected = false;
+                            tvPictures.Items.Remove(titem);
+                            File.Delete(filepath);
+                        }
+
                         MessageBox.Show("File successfully saved.", "Success", MessageBoxButton.OK);
                     }
                 }
