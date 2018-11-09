@@ -216,9 +216,11 @@ namespace PhotoEdit
                         {
                             filename += "_" + cboFilename.SelectedValue.ToString();
                         }
+                        if (txtExtraFileName.Text != "") { filename += "_" + txtExtraFileName.Text; }
                         filename += filepath.Substring(filepath.IndexOf('.')).ToLower();
                         File.Copy(filepath, foldername + "\\" + filename);
-
+                        //File.Delete(filepath);
+                        
                         MessageBox.Show("File successfully saved.", "Success", MessageBoxButton.OK);
                     }
                 }

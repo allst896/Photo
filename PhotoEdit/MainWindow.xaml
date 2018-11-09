@@ -10,35 +10,34 @@
         <CommandBinding Command="self:CustomCommands.Settings" CanExecute="SettingsCommand_CanExecute" Executed="SettingsCommand_Executed" />
     </Window.CommandBindings>
     <Grid>
-        <Grid.RowDefinitions>
-            
-        </Grid.RowDefinitions>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Command="self:CustomCommands.Settings" />
+                </MenuItem>
+            </Menu>
+            <StackPanel>
+                <GroupBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="650" Width="750">
+                    <Grid>
+                        <Label Content="Date Photos Taken:" Height="25" Width="120" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"></Label>
+                        <DatePicker Name="dtpDateTaken" SelectedDateChanged="dtpDateTaken_Changed" SelectedDateFormat="Short" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="148,0,0,0"></DatePicker>
+                        <Button Name="cmdOpenEmail" Click="cmdOpenEmail_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="100" Content="Email" Margin="275,0,0,0"></Button>
+                        <Label Content="Current Folder:" Height="25" Width="100" Margin="0,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
+                        <Button Name="cmdBrowseCurrentFolder" Click="cmdBrowseCurrentFolder_Click" Height="25" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,30,0,0" Content="Browse"></Button>
+                        <TextBox Name="txtCurrentFolder" Height="25" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0"></TextBox>
+                        <TreeView SelectedItemChanged="SelectionChanged" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="250" Margin="0,95,0,0" Name="tvPictures"/>
+                        <Image HorizontalAlignment="Left" Height="550" VerticalAlignment="Top" Width="450" Margin="275,30,0,0" Name="imViewer"/>
+                        <Label Content="Destination Folder:" Height="25" Width="250" Margin="0,402,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"></Label>
+                        <Button Name="cmdBrowseDestinationFolder" Click="cmdBrowseDestinationFolder_Click" Height="25" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,402,0,0" Content="Browse"></Button>
+                        <TextBox Name="txtDestinationFolder" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" Margin="0,432,0,0" Height="25"></TextBox>
+                        <Label Content="Save as (file name):" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Margin="160,595,0,0"></Label>
+                        <TextBox Name="txtSaveFileFormat" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="25" Margin="275,595,0,0"></TextBox>
+                        <ComboBox Name="cboFilename" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="25" Margin="405,595,0,0"></ComboBox>
+                        <TextBox Name="txtExtraFileName" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Height="25" Margin="535,595,0,0"></TextBox>
+                        <Button Name="cmdSaveFile" Click="cmdSaveFile_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Content="Save" Height="25" Width="100" Margin="626,595,0,0"></Button>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </DockPanel>
     </Grid>
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_File">
-                <MenuItem Command="self:CustomCommands.Settings" />
-            </MenuItem>
-        </Menu>
-        <StackPanel>
-            <GroupBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="650" Width="750">
-                <Grid>
-                    <Label Content="Date Photos Taken:" Height="25" Width="120" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"></Label>
-                    <DatePicker Name="dtpDateTaken" SelectedDateChanged="dtpDateTaken_Changed" SelectedDateFormat="Short" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="148,0,0,0"></DatePicker>
-                    <Button Name="cmdOpenEmail" Click="cmdOpenEmail_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="100" Content="Email" Margin="275,0,0,0"></Button>
-                    <Label Content="Current Folder:" Height="25" Width="100" Margin="0,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
-                    <Button Name="cmdBrowseCurrentFolder" Click="cmdBrowseCurrentFolder_Click" Height="25" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,30,0,0" Content="Browse"></Button>
-                    <TextBox Name="txtCurrentFolder" Height="25" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0"></TextBox>
-                    <TreeView SelectedItemChanged="SelectionChanged" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="250" Margin="0,95,0,0" Name="tvPictures"/>
-                    <Image HorizontalAlignment="Left" Height="395" VerticalAlignment="Top" Width="450" Margin="275,30,0,0" Name="imViewer"/>
-                    <Label Content="Destination Folder:" Height="25" Width="250" Margin="0,402,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"></Label>
-                    <Button Name="cmdBrowseDestinationFolder" Click="cmdBrowseDestinationFolder_Click" Height="25" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,402,0,0" Content="Browse"></Button>
-                    <TextBox Name="txtDestinationFolder" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" Margin="0,432,0,0" Height="25"></TextBox>
-                    <TextBox Name="txtSaveFileFormat" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="25" Margin="275,432,0,0"></TextBox>
-                    <ComboBox Name="cboFilename" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="25" Margin="405,432,0,0"></ComboBox>
-                    <Button Name="cmdSaveFile" Click="cmdSaveFile_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Content="Save" Height="25" Width="100" Margin="626,432,0,0"></Button>
-                </Grid>
-            </GroupBox>
-        </StackPanel>
-    </DockPanel>
 </Window>
