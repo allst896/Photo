@@ -66,6 +66,21 @@ namespace PhotoEdit
             }
         }
 
+        private void cmdRefreshImageList_Click(object sender, RoutedEventArgs e)
+        {
+            string evoid = "MainWindow:cmdRefreshImageList_Click";
+
+            try
+            {
+                ListDirectory(tvPictures, txtCurrentFolder.Text);
+            }
+            catch (Exception ex)
+            {
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\PhotoEdit_Error.log", "(" + DateTime.Now.ToString() + ") " + evoid + ": " + ex.Message.ToString() + Environment.NewLine);
+                MessageBox.Show("An error has occurred. Please see error log for details.", "Error", MessageBoxButton.OK);
+            }
+        }
+
         private void cmdBrowseDestinationFolder_Click(object sender, RoutedEventArgs e)
         {
             string evoid = "MainWindow:cmdBrowseDestinationFolder_Click";
@@ -137,6 +152,7 @@ namespace PhotoEdit
                 if (File.Exists(Properties.Settings.Default.FileNameFile.ToString()))
                 {
                     string line = "";
+                    cboFilename.Items.Add(line);
                     StreamReader sr = new StreamReader(Properties.Settings.Default.FileNameFile.ToString());
                     while ((line=sr.ReadLine()) != null)
                     {
